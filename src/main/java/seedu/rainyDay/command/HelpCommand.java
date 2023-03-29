@@ -184,9 +184,9 @@ public class HelpCommand extends Command {
             "| shortcut salary -maps add   | Creates a shortcut: salary ,which runs add -in $10000 salary         |\n" +
             "| -in $10000 salary           |                                                                      |\n" +
             "|                             |                                                                      |\n" +
-            "| view_shortcut               | Views all shortcuts created and what they are mapped to              |\n" +
+            "| shortcut_view               | Views all shortcuts created and what they are mapped to              |\n" +
             "|                             |                                                                      |\n" +
-            "| delete_shortcut salary      | Remove the shortcut: salary                                          |\n" +
+            "| shortcut_delete salary      | Remove the shortcut: salary                                          |\n" +
             "+====================================================================================================+\n";
 
     private static final String HELP_IGNORE_COMMAND = "" +
