@@ -60,7 +60,7 @@ public class AddCommand extends Command {
 
         assert totalStatementCount + 1 == userData.getStatementCount() : "statement count mismatch";
 
-        String budgetInfo = userData.checkUserBudgetLimit(newStatement);
+        String budgetInfo = userData.checkUserBudgetLimit(newStatement.getMonthAndYear());
 
         String output = "Done! Added: " + userData.getStatement(totalStatementCount).getFullStatement()
                 + budgetInfo;

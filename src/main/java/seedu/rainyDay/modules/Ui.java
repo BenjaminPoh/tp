@@ -66,6 +66,7 @@ public class Ui {
     }
 
     public String readUserCommand() {
+        System.out.print("> ");
         String userInput = in.nextLine();
         UILogger.log(Level.INFO, userInput);
         return userInput.trim();

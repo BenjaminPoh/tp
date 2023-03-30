@@ -55,7 +55,7 @@ public class DeleteCommand extends Command {
         userData.deleteStatement(index);
         assert previousStatementCount - 1 == userData.getStatementCount() : "statement count mismatch";
 
-        String budgetInfo = userData.checkUserBudgetLimit(oldStatement);
+        String budgetInfo = userData.checkUserBudgetLimit(oldStatement.getMonthAndYear());
 
         String output = "Done, deleted \"" + oldStatement.getDescription() + "\" from the financial report"
                 + budgetInfo;

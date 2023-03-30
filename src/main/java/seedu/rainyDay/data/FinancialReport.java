@@ -52,9 +52,10 @@ public class FinancialReport {
         return financialReport.get(statementNumber).getStatementForList();
     }
 
-    public double getMonthlyExpenditure(FinancialStatement currentStatement) {
-        int monthAndYear = currentStatement.getMonthAndYear();
-        assert (monthlyExpenditures.containsKey(monthAndYear));
+    public double getMonthlyExpenditure(int monthAndYear) {
+        if (!monthlyExpenditures.containsKey(monthAndYear)) {
+            return 0;
+        }
         return monthlyExpenditures.get(monthAndYear);
     }
 

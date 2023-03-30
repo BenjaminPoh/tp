@@ -4,21 +4,22 @@ package seedu.rainyDay.command;
 public class HelpCommand extends Command {
     private static final String HELP_COMMAND = "" +
             "+====================================================================================================+\n" +
-            "|Welcome to RainyDay! Here is the overview of commands available                                     |\n" +
+            "| Welcome to RainyDay! Here is the overview of commands available                                    |\n" +
             "+====================================================================================================+\n" +
-            "|Feature          |Command  |Additional Syntax                                                       |\n" +
-            "+-----+-----------+--------+-------------------------------------------------------------------------+\n" +
-            "|Add entry        |add      |[-in/-out] [DESCRIPTION] $[VALUE] {-c CATEGORY} {-date DATE}            |\n" +
-            "|Delete entry     |delete   |[INDEX]                                                                 |\n" +
-            "|View entries     |view     |{TIME} {-sort}                                                          |\n" +
-            "|Filter entries   |filter   |{-in} {-out} {-d DESCRIPTION} {-c CATEGORY} {-date DATE}                |\n" +
-            "|Edit an entry    |edit     |[INDEX] [-in/ -out/ -d DESCRIPTION/ -v $VALUE/ -c CATEGORY/ -date DATE] |\n" +
-            "|Create Shortcuts |shortcut |[SHORTCUT COMMAND -maps VALID COMMAND]                                  |\n" +
-            "|Ignore entry     |ignore   |[INDEX]                                                                 |\n" +
-            "|Unignore entry   |unignore |[INDEX]                                                                 |\n" +
-            "|Export to .csv   |export   |                                                                        |\n" +
-            "|Display a guide  |help     |{COMMAND}                                                               |\n" +
-            "+=====+==============================================================================================+\n" +
+            "| Feature            | Command   | Additional Syntax                                                 |\n" +
+            "+--------------------+-----------+-------------------------------------------------------------------+\n" +
+            "| Add entry          | add       | [-in/-out] [DESCRIPTION] $[VALUE] {-c CATEGORY} {-date DATE}      |\n" +
+            "| Delete entry       | delete    | [INDEX]                                                           |\n" +
+            "| View entries       | view      | {TIME} {-sort}                                                    |\n" +
+            "| Filter entries     | filter    | {-in} {-out} {-d DESCRIPTION} {-c CATEGORY} {-date DATE}          |\n" +
+            "| Edit an entry      | edit      | [INDEX] [-in/-out/-d DESCRIPTION/-v $VALUE/-c CATEGORY/-date DATE]|\n" +
+            "| Set monthly budget | setbudget | [VALUE]                                                           |\n"+
+            "| Create shortcuts   | shortcut  | [SHORTCUT COMMAND -maps VALID COMMAND]                            |\n" +
+            "| Ignore entry       | ignore    | [INDEX]                                                           |\n" +
+            "| Unignore entry     | unignore  | [INDEX]                                                           |\n" +
+            "| Export to .csv     | export    |                                                                   |\n" +
+            "| Display a guide    | help      | {COMMAND}                                                         |\n" +
+            "+====================================================================================================+\n" +
             "|[] :  Denotes compulsory fields. Relevant details / flags must be included.                         |\n" +
             "|{} :  Denotes optional fields. Can be ignored                                                       |\n" +
             "|For more information on any command: type   < help {command} >   as shown above (e.g. help add)     |\n" +
@@ -159,8 +160,8 @@ public class HelpCommand extends Command {
             "+====================================================================================================+\n" +
             "| Example Usage               | Description                                                          |\n" +
             "+-----------------------------+----------------------------------------------------------------------+\n" +
-            "| budgetset 44.5              | Sets the user's Budget Goal to be $44.50                             |\n" +
-            "| budgetset 0                 | Remove the user's Budget Goal                                        |\n" +
+            "| setbudget 44.5              | Sets the user's Budget Goal to be $44.50                             |\n" +
+            "| setbudget 0                 | Remove the user's Budget Goal                                        |\n" +
             "+====================================================================================================+\n";
 
     private static final String HELP_SHORTCUT_COMMAND = "" +

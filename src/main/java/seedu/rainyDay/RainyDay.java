@@ -10,6 +10,7 @@ import seedu.rainyDay.data.FinancialReport;
 import seedu.rainyDay.modules.Parser;
 
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.FileHandler;
@@ -51,6 +52,8 @@ public class RainyDay {
     private void showStartingMessage() {
         ui.printLogo();
         ui.greetUser(userData.getReportOwner());
+        int currentMonthYear = LocalDate.now().getMonthValue() + LocalDate.now().getYear() * 12;
+        System.out.println(userData.checkUserBudgetLimit(currentMonthYear));
         Storage.writeToFile(RainyDay.userData, RainyDay.filePath);
     }
 
