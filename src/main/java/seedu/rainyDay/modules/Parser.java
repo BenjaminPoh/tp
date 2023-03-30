@@ -303,9 +303,25 @@ public class Parser {
     //@@author ChongQiRong
     private Command filterStatement(String input) {
         try {
-            int count = (int) input.chars().filter(ch -> ch == '-').count();
-            if (count >= 1) {
-                return new FilterCommand(parseFilterMultipleFlags(input));
+            int sizeOfFilterFlagAndField = 0;
+            String[] flagAndField = input.split("\\s");
+            for (String s : flagAndField) {
+                if (s.contains("-in")) {
+                    sizeOfFilterFlagAndField += 1;
+                } else if (s.contains("-out")) {
+                    sizeOfFilterFlagAndField += 1;
+                } else if (s.contains("-d")) {
+                    sizeOfFilterFlagAndField += 2;
+                } else if (s.contains("-c")) {
+                    sizeOfFilterFlagAndField += 2;
+                } else if (s.contains("-date")) {
+                    sizeOfFilterFlagAndField += 2;
+                }
+            }
+
+            if (input.startsWith("-in") | input.startsWith("-out") | input.startsWith("-d")
+                    | input.startsWith("-c") | input.startsWith("-date")) {
+                return new FilterCommand(parseFilterMultipleFlags(input, sizeOfFilterFlagAndField));
             } else {
                 logger.warning("unrecognised input from user!");
                 return new InvalidCommand(ErrorMessage.WRONG_FILTER_FORMAT.toString());
@@ -316,34 +332,26 @@ public class Parser {
         }
     }
 
-    private ArrayList<String> parseFilterMultipleFlags(String input) {
+    private ArrayList<String> parseFilterMultipleFlags(String input, int sizeOfFilterFlagAndField) {
         Pattern pattern = Pattern.compile("(?:(-in|-out)\\s*)?\\s*" +
                 "(?:(-d)\\s+([^\\s-]+(?:\\s+[^\\s-]+)*)\\s*)?" +
                 "(?:(-c)\\s+([^\\s-]+(?:\\s+[^\\s-]+)*)\\s*)?" +
-                "(?:(-date)\\s+(\\d{2}/\\d{2}/\\d{4})\\s*)?\\s*$");
+                "(?:(-date)\\s+(\\d{2}/\\d{2}/\\d{4})\\s*)?([\\w]*)$");
         Matcher matcher = pattern.matcher(input);
         ArrayList<String> filterFlagAndField = new ArrayList<>();
 
         if (matcher.find()) {
-            for (int i = 1; i <= 7; i += 1) {
-                if (matcher.group(i) != null) {
-                    filterFlagAndField.add(matcher.group(i));
+            for (int i = 1; i <= 8; i += 1) {
+                if (!matcher.group(8).equals("")) {
+                    logger.warning("edit command given by user in the wrong format");
+                    throw new IllegalArgumentException(ErrorMessage.WRONG_EDIT_FORMAT.toString());
                 }
-            }
-            int sizeOfFilterFlagAndField = 0;
-            for (String s : filterFlagAndField) {
-                if (s.equals("-d")) {
-                    sizeOfFilterFlagAndField += 2;
-                } else if (s.equals("-c")) {
-                    sizeOfFilterFlagAndField += 2;
-                } else if (s.equals("-date")) {
-                    sizeOfFilterFlagAndField += 2;
-                } else if (s.equals("-in")) {
-                    sizeOfFilterFlagAndField += 1;
-                } else if (s.equals("-out")) {
-                    sizeOfFilterFlagAndField += 1;
+                if (matcher.group(i) == null || i == 8) {
+                    continue;
                 }
+                filterFlagAndField.add(matcher.group(i));
             }
+
             if (filterFlagAndField.size() != sizeOfFilterFlagAndField) {
                 logger.warning("filter command given by user in the wrong format");
                 throw new IllegalArgumentException(ErrorMessage.WRONG_FILTER_FORMAT.toString());
@@ -358,7 +366,7 @@ public class Parser {
     public Command editStatement(String userInput) throws IllegalArgumentException {
         try {
             String[] tokens = userInput.split("\\s+", 3);
-            if (tokens.length <= 3) {
+            if (tokens.length < 3) {
                 logger.warning("invalid edit index from user");
                 throw new IllegalArgumentException();
             }
@@ -368,9 +376,27 @@ public class Parser {
                 throw new IllegalArgumentException();
             }
 
+            int sizeOfEditFlagAndField = 0;
+            String[] flagAndField = tokens[2].split("\\s");
+            for (String s : flagAndField) {
+                if (s.equals("-in")) {
+                    sizeOfEditFlagAndField += 1;
+                } else if (s.equals("-out")) {
+                    sizeOfEditFlagAndField += 1;
+                } else if (s.equals("-d")) {
+                    sizeOfEditFlagAndField += 2;
+                } else if (s.equals("-v")) {
+                    sizeOfEditFlagAndField += 2;
+                } else if (s.equals("-c")) {
+                    sizeOfEditFlagAndField += 2;
+                } else if (s.equals("-date")) {
+                    sizeOfEditFlagAndField += 2;
+                }
+            }
+
             if (tokens[2].startsWith("-in") | tokens[2].startsWith("-out") | tokens[2].startsWith("-d")
                     | tokens[2].startsWith("-c") | tokens[2].startsWith("-v") | tokens[2].startsWith("-date")) {
-                ArrayList<String> editFlagAndField = parseEditMultipleFlags(tokens[2]);
+                ArrayList<String> editFlagAndField = parseEditMultipleFlags(tokens[2], sizeOfEditFlagAndField);
                 if (editFlagAndField.contains("-date")) {
                     LocalDate.parse(editFlagAndField.get(editFlagAndField.size() - 1),
                             DateTimeFormatter.ofPattern("dd/MM/yyyy"));
@@ -386,37 +412,27 @@ public class Parser {
         }
     }
 
-    private ArrayList<String> parseEditMultipleFlags(String input) {
+    private ArrayList<String> parseEditMultipleFlags(String input, int sizeOfEditFlagAndField) {
         Pattern pattern = Pattern.compile("(?:(-in|-out)\\s*)?\\s*" +
                 "(?:(-d)\\s+([^\\s-]+(?:\\s+[^\\s-]+)*)\\s*)?" +
                 "(?:(-v)\\s+\\$([\\d]+(?:\\.?[\\d]){0,2})\\s*)?" +
                 "(?:(-c)\\s+([^\\s-]+(?:\\s+[^\\s-]+)*)\\s*)?" +
-                "(?:(-date)\\s+(\\d{2}/\\d{2}/\\d{4})\\s*)?\\s*$");
+                "(?:(-date)\\s+(\\d{2}/\\d{2}/\\d{4})\\s*)?([\\w]*)$");
         Matcher matcher = pattern.matcher(input);
         ArrayList<String> editFlagAndField = new ArrayList<>();
 
         if (matcher.find()) {
-            for (int i = 1; i <= 9; i += 1) {
-                if (matcher.group(i) != null) {
-                    editFlagAndField.add(matcher.group(i));
+            for (int i = 1; i <= 10; i += 1) {
+                if (!matcher.group(10).equals("")) {
+                    logger.warning("edit command given by user in the wrong format");
+                    throw new IllegalArgumentException(ErrorMessage.WRONG_EDIT_FORMAT.toString());
                 }
-            }
-            int sizeOfEditFlagAndField = 0;
-            for (String s : editFlagAndField) {
-                if (s.equals("-d")) {
-                    sizeOfEditFlagAndField += 2;
-                } else if (s.equals("-v")) {
-                    sizeOfEditFlagAndField += 2;
-                } else if (s.equals("-c")) {
-                    sizeOfEditFlagAndField += 2;
-                } else if (s.equals("-date")) {
-                    sizeOfEditFlagAndField += 2;
-                } else if (s.equals("-in")) {
-                    sizeOfEditFlagAndField += 1;
-                } else if (s.equals("-out")) {
-                    sizeOfEditFlagAndField += 1;
+                if (matcher.group(i) == null || i == 10) {
+                    continue;
                 }
+                editFlagAndField.add(matcher.group(i));
             }
+
             if (editFlagAndField.size() == 0 || editFlagAndField.size() != sizeOfEditFlagAndField) {
                 logger.warning("edit command given by user in the wrong format");
                 throw new IllegalArgumentException(ErrorMessage.WRONG_EDIT_FORMAT.toString());
@@ -426,6 +442,7 @@ public class Parser {
             logger.warning("edit command given by user in the wrong format");
             throw new IllegalArgumentException(ErrorMessage.WRONG_EDIT_FORMAT.toString());
         }
+
     }
 
     //@@author KN-CY
