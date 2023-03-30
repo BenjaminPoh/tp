@@ -127,8 +127,31 @@ the possible commands and their respective structures!
 
 Format: `help`
 
-The table below will be shown: <br>
-![help.png](images/UserGuide/help.png)
+The table below will be shown with the `help` command: <br>
+
+```
+> help
++====================================================================================================+
+|Welcome to RainyDay! Here is the overview of commands available                                     |
++====================================================================================================+
+|Feature          |Command  |Additional Syntax                                                       |
++-----+-----------+--------+-------------------------------------------------------------------------+
+|Add entry        |add      |[-in/-out] [DESCRIPTION] $[VALUE] {-c CATEGORY} {-date DATE}            |
+|Delete entry     |delete   |[INDEX]                                                                 |
+|View entries     |view     |{TIME} {-sort}                                                          |
+|Filter entries   |filter   |{-in} {-out} {-d DESCRIPTION} {-c CATEGORY} {-date DATE}                |
+|Edit an entry    |edit     |[INDEX] [-in/ -out/ -d DESCRIPTION/ -v $VALUE/ -c CATEGORY/ -date DATE] |
+|Create Shortcuts |shortcut |[SHORTCUT COMMAND -maps VALID COMMAND]                                  |
+|Ignore entry     |ignore   |[INDEX]                                                                 |
+|Unignore entry   |unignore |[INDEX]                                                                 |
+|Export to .csv   |export   |                                                                        |
+|Display a guide  |help     |{COMMAND}                                                               |
++=====+==============================================================================================+
+|[] :  Denotes compulsory fields. Relevant details / flags must be included.                         |
+|{} :  Denotes optional fields. Can be ignored                                                       |
+|For more information on any command: type   < help {command} >   as shown above (e.g. help add)     |
++====================================================================================================+```
+```
 
 For more information on each individual command, the help command can also provide a more detailed guide, including
 details such as input constraints and examples for you to refer to
@@ -136,7 +159,36 @@ details such as input constraints and examples for you to refer to
 Format: `help {COMMAND}`
 
 For instance, the table below are details for the add command: <br>
-![detailedhelp.png](images/UserGuide/detailedhelp.png)
+
+```
+> help add
++====================================================================================================+
+| Add command                 | Used to add a new entry to RainyDay                                  |
++====================================================================================================+
+| Details       | Requirement | Description                                                          |
++---------------+-------------+----------------------------------------------------------------------+
+| -in / -out    | Mandatory   | Used to denote if the entry is an inflow or an outflow               |
+| <DESCRIPTION> | Optional    | Used to describe the entry. Description will be left blank if omitted|
+| $<VALUE>      | Mandatory   | Used to set the value of the entry.                                  |
+| -c <CATEGORY> | Optional    | Used to denote the category of the entry. Set to Misc if omitted     |
+| -date <DATE>  | Optional    | Used to denote the date of the entry. Set to present date if omitted |
++====================================================================================================+
+| Example Usage               | Description                                                          |
++-----------------------------+----------------------------------------------------------------------+
+| add -in Salary $2113.09     | Adds entry with description: Salary and value: $2113.09 as inflow    |
+|                             |                                                                      |
+| add -out Noodles $5         | Adds entry with description: Noodles and value: $5 as outflow        |
+|                             |                                                                      |
+| add -out Bus $0.98 -c       | Adds entry with description: Bus and value: $0.98 as outflow,        |
+| Transport                   | with its category set to Transport                                   |
+|                             |                                                                      |
+| add -out Bubble Tea $5.20   | Adds entry with description: Bubble Tea and value: $5.20 as outflow, |
+| -c Food -date 22/03/2018    | with its category set to Food and date set to 22nd March, 2018       |
+|                             |                                                                      |
+| add -out $198 -c Bills      | Adds entry with no description and value: $198 as outflow, with its  |
+|                             | category set to Bills                                                |
++====================================================================================================+
+```
 
 ### Adding a transaction
 
@@ -211,7 +263,22 @@ Format: `view {TIMESPAN} {-sort}`
 
 > 💡**Tip:** To view all entries you can use -all in place of a specific time in TIMESPAN
 
-![view.png](images/UserGuide/view.png)
+```
++====================================================================================================+
+|Here is your financial report!                                                                      |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|Haidilao                                     | -$500.00     |miscellaneous        |30/03/2023|
+|000002|Allowance                                    | +$20.00      |Allowance            |01/03/2023|
+|000003|beef noodles                                 | -$12.00      |Food and Drinks      |30/03/2023|
+|000004|pay                                          | +$50000.00   |miscellaneous        |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+|Viewing all entries from 2023-02-28 till today                                                      |
+|Total Inflow: $50020.00                                                                             |
+|Total Outflow: $512.00                                                                              |
+|Remaining value: $49508.00                                                                          |
++====================================================================================================+
+```
 
 ### Deleting a transaction
 
@@ -224,16 +291,32 @@ Format: `delete [INDEX]`
     * The transaction number can be obtained from [viewing the transactions](#viewing-the-transactions)
 
 Example of usage:
+Your current financial report is at the state in the example given in the 
+[viewing the transactions](#viewing-the-transactions) section.
+To delete the transaction with the description "beef noodles", you can use the command:
 
-After requesting to view the transactions from rainyDay, the following is shown to you: <br>
-![delete.png](images/UserGuide/delete.png)
-To delete the transaction with the description "lunch at hawker centre", provide the command:
+`delete 3`
 
-* `delete 2`
-
-The transaction with the description "lunch at hawker centre" will be deleted, and the transactions shown to you
+The transaction with the description "beef noodles" will be deleted, and the transactions shown to you
 subsequently after requesting to view the transactions will be as such: <br>
-![delete1.png](images/UserGuide/delete1.png)
+```
+> delete 3
+Done, deleted "beef noodles" from the financial report
+> view
++====================================================================================================+
+|Here is your financial report!                                                                      |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|Haidilao                                     | -$500.00     |miscellaneous        |30/03/2023|
+|000002|Allowance                                    | +$20.00      |Allowance            |01/03/2023|
+|000003|pay                                          | +$50000.00   |miscellaneous        |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+|Viewing all entries from 2023-02-28 till today                                                      |
+|Total Inflow: $50020.00                                                                             |
+|Total Outflow: $500.00                                                                              |
+|Remaining value: $49520.00                                                                            |
++====================================================================================================+
+```
 
 ### Filter statements
 
@@ -243,39 +326,86 @@ will help you extract certain transactions based on a specific criteria
 Format : `filter [FLAG] {FIELD}`
 
 * The `FLAG` must be one of the following:
-  * `-in` to filter by inflows
-  * `-out` to filter by outflows
-  * `-d` to filter by description
-  * `-c` to filter by category
-  * `-date` to filter by date
+    * `-in` to filter by inflows
+    * `-out` to filter by outflows
+    * `-d` to filter by description
+    * `-c` to filter by category
+    * `-date` to filter by date
 * date `FIELD` must be in the form DD/MM/YYYY
 
 Example of usage:
 
 After requesting to view the transactions from rainyDay, the following is shown to you:
-![viewForFilter.png](images/UserGuide/viewForFilter.png)
+```
+> view
++====================================================================================================+
+|Here is your financial report!                                                                      |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|chicken rice                                 | -$5.00       |Food                 |25/03/2023|
+|000002|beef noodles                                 | -$12.00      |Food and Drinks      |26/03/2023|
+|000003|Haidilao                                     | -$500.00     |miscellaneous        |22/03/2023|
+|000004|Pay                                          | +$50000.00   |miscellaneous        |26/03/2023|
+|000005|Allowance                                    | +$20.00      |Allowance            |01/03/2023|
+|000006|Angpao                                       | +$2000.00    |Chinese New Year     |26/03/2023|
+|000007|Fried chicken                                | -$22.00      |Food and Drinks      |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+|Viewing all entries from 2023-02-28 till today                                                      |
+|Total Inflow: $52020.00                                                                             |
+|Total Outflow: $539.00                                                                              |
+|Remaining value: $51481.00                                                                          |
++====================================================================================================+
+```
 
 Suppose you want to find out transactions related to chicken, you can use this command:
 
 `filter -d chicken`
 
-![filterChicken.png](images/UserGuide/filterChicken.png)
+```
+> filter -d chicken
++------+---------------------------------------------+--------------+---------------------+----------+
+|Here is your filtered financial report!                                                             |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|chicken rice                                 | -$5.00       |Food                 |25/03/2023|
+|000007|Fried chicken                                | -$22.00      |Food and Drinks      |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+```
 
 Suppose you want to check your outflows only, you can use this command:
 
 `filter -out`
 
-![filterOutflow.png](images/UserGuide/filterOutflow.png)
-
+```
+> filter -out
++------+---------------------------------------------+--------------+---------------------+----------+
+|Here is your filtered financial report!                                                             |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|chicken rice                                 | -$5.00       |Food                 |25/03/2023|
+|000002|beef noodles                                 | -$12.00      |Food and Drinks      |26/03/2023|
+|000003|Haidilao                                     | -$500.00     |miscellaneous        |22/03/2023|
+|000007|Fried chicken                                | -$22.00      |Food and Drinks      |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+```
 > 💡**Tip:** Multiple flags may be used at once but must be in this order:
 >
 > `-in` or `out` -> `-d` -> `-c` -> `-date`
->
-> Suppose you want to find out what food you ate on a particular day, you can use this command:
->
-> `filter -c Food and Drinks -date 26/03/2023`
->
-> ![FilterMultipleFlags.png](images/UserGuide/FilterMultipleFlags.png)
+
+Suppose you want to find out what food you ate on a particular day, you can use this command:
+
+`filter -c Food and Drinks -date 26/03/2023`
+
+ ```
+ > filter -c Food and Drinks -date 26/03/2023
++------+---------------------------------------------+--------------+---------------------+----------+
+|Here is your filtered financial report!                                                             |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000002|beef noodles                                 | -$12.00      |Food and Drinks      |26/03/2023|
+|000007|Fried chicken                                | -$22.00      |Food and Drinks      |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+```
 
 ### Editing a transaction
 
@@ -298,13 +428,53 @@ Example of usage:
 
 After requesting to view the transactions from rainyDay, the following is shown to you:
 
-![viewForFilter.png](images/UserGuide/viewForFilter.png)
+```
+> view
++====================================================================================================+
+|Here is your financial report!                                                                      |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|chicken rice                                 | -$5.00       |Food                 |25/03/2023|
+|000002|beef noodles                                 | -$12.00      |Food and Drinks      |26/03/2023|
+|000003|Haidilao                                     | -$500.00     |miscellaneous        |22/03/2023|
+|000004|Pay                                          | +$50000.00   |miscellaneous        |26/03/2023|
+|000005|Allowance                                    | +$20.00      |Allowance            |01/03/2023|
+|000006|Angpao                                       | +$2000.00    |Chinese New Year     |26/03/2023|
+|000007|Fried chicken                                | -$22.00      |Food and Drinks      |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+|Viewing all entries from 2023-02-28 till today                                                      |
+|Total Inflow: $52020.00                                                                             |
+|Total Outflow: $539.00                                                                              |
+|Remaining value: $51481.00                                                                          |
++====================================================================================================+
+```
 
 Suppose you realised you made a mistake in the category of entry 1 and want to replace the category of entry 1 with
 'Food and Drinks' instead of 'Food', you can use this command:
+
 `edit 1 -c Food and Drinks`
 
-![EditCategory.png](images/UserGuide/EditCategory.png)
+```
+> edit 1 -c Food and Drinks
+Done, edited entry 1 from the financial report
+> view
++====================================================================================================+
+|Here is your financial report!                                                                      |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|chicken rice                                 | -$5.00       |Food and Drinks      |25/03/2023|
+|000002|beef noodles                                 | -$12.00      |Food and Drinks      |26/03/2023|
+|000003|Haidilao                                     | -$500.00     |miscellaneous        |22/03/2023|
+|000004|Pay                                          | +$50000.00   |miscellaneous        |26/03/2023|
+|000005|Allowance                                    | +$20.00      |Allowance            |01/03/2023|
+|000006|Angpao                                       | +$2000.00    |Chinese New Year     |26/03/2023|
+|000007|Fried chicken                                | -$22.00      |Food and Drinks      |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+|Viewing all entries from 2023-02-28 till today                                                      |
+|Total Inflow: $52020.00                                                                             |
+|Total Outflow: $539.00                                                                              |
+|Remaining value: $51481.00                                                                          |
+```
 
 > 💡**Tip:** Multiple flags may be used at once but must be in this order:
 >
@@ -314,7 +484,28 @@ Suppose you want to edit multiple fields of an entry, and instead of deleting an
 this command:
 `edit 2 -out Beef noodles $15 -c Food -date 22/03/2023`
 
-![EditMultipleEntries.png](images/UserGuide/EditMultipleEntries.png)
+```
+> edit 2 -out Beef noodles $15 -c Food -date 22/03/2023
+Done, edited entry 2 from the financial report
+> view
++====================================================================================================+
+|Here is your financial report!                                                                      |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|chicken rice                                 | -$5.00       |Food and Drinks      |25/03/2023|
+|000002|beef noodles                                 | -$12.00      |Food                 |22/03/2023|
+|000003|Haidilao                                     | -$500.00     |miscellaneous        |22/03/2023|
+|000004|Pay                                          | +$50000.00   |miscellaneous        |26/03/2023|
+|000005|Allowance                                    | +$20.00      |Allowance            |01/03/2023|
+|000006|Angpao                                       | +$2000.00    |Chinese New Year     |26/03/2023|
+|000007|Fried chicken                                | -$22.00      |Food and Drinks      |26/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+|Viewing all entries from 2023-02-28 till today                                                      |
+|Total Inflow: $52020.00                                                                             |
+|Total Outflow: $539.00                                                                              |
+|Remaining value: $51481.00                                                                          |
++====================================================================================================+
+```
 
 ### Setting a Monthly Budget
 
@@ -327,18 +518,25 @@ Format : `setbudget GOAL`
 
 For example, if you would like to set a monthly budget goal of $1000, use the command below:<br>
 `setbudget 1000`
-
-![setbudgetgoal.png](images/UserGuide/setbudgetgoal.png)
-
+```
+> setbudget 1000
+Monthly Budget Goal set to $1,000.00!
+```
 An additional message will accompany new expenses on how much you have spent for the month!
 
-![messgewithsetbudget.png](images/UserGuide/messgewithsetbudget.png)
+```
+> add -out noodles $5
+Done! Added: out for noodles, -$5.00
+You have spent $544.00/$1000.00, Keep it up!
+```
 
 If at any point of time you would like to remove this feature, simply set the goal to $0<br>
 `setbudget 0`
 
-![unsetbudgetgoal.png](images/UserGuide/unsetbudgetgoal.png)
-
+```
+> setbudget 0
+Monthly Budget Goal removed!
+```
 ### Adding a shortcut
 
 If you happen to have certain commands that you find yourself frequently using, rainyDay's shortcuts can make it much
@@ -352,28 +550,35 @@ Format: `shortcut [SHORTCUTNAME] -maps [ACTUALCOMMAND]`
 Example of usage:
 
 You often eat the same noodle dish from your favourite coffee shop. To save yourself the trouble of typing the same
-command in full, you could configure the shortcut as follows.
+command in full, you could configure the shortcut with the command below.
 
 `shortcut FavLunch -maps add -out noodles $4 -c food`
 
->⚠️ Avoid adding a shortcut with the same name as an actual command. The actual command will take priority over your configured shortcut.
+```
+> shortcut FavLunch -maps add -out noodles $4 -c food
+Shortcut successfully added
+```
+
+> ⚠️ Avoid adding a shortcut with the same name as an actual command. The actual command will take priority over your
+> configured shortcut.
+
 ### Using a shortcut
 
 After configuring your shortcuts, you may want to use the shortcut to save yourself the trouble of typing the
-full command. This can be done by simply inputting the name of the configured shortcut.
+full command. This can be done by simply inputting the name of your configured shortcut command.
 
 Format: `[SHORTCUTNAME]`
 
 Example of Usage:
 
 You have configured the shortcut according to the example in the [adding a shortcut](#adding-a-shortcut) section. Now
-all you have to do is input the name of the shortcut as follows.
+all you have to do is input the name of your configured shortcut command.
 
 `FavLunch`
-
-Using the shortcut will allow you to add the same entry for noodles with a shorter command!
-
-![shortcutusage](images/UserGuide/shortcutusage.png)
+```
+> FavLunch
+Done! Added: out for noodles, -$4.00
+```
 
 ### Viewing a shortcut
 
@@ -386,7 +591,17 @@ Example of Usage:
 
 The output will look something like this:
 
-![shortcutview.png](images/UserGuide/shortcutview.png)
+```
+shortcut_view
++-----------------------------------+-------------------------------------------------------------+
+|Here are your shortcuts!                                                                         |
++-----------------------------------+-------------------------------------------------------------+
+|Shortcut                           |Mapped Command                                               |
+|a                                  |add -in daily salary $5                                      |
+|v                                  |view                                                         |
+|FavLunch                           |add -out noodles $4 -c food                                  |
++-----------------------------------+-------------------------------------------------------------+
+```
 
 ### Deleting a shortcut
 
@@ -402,8 +617,8 @@ Example of Usage:
 
 You have configured the shortcut according to the example in the [adding a shortcut section](#adding-a-shortcut).
 Unfortunately, your favourite coffee shop has closed down, and you are no longer able to enjoy your favourite noodle
-dish. Now the shortcut you previously configured is no longer useful. All you have to do is delete the shortcut as
-follows:
+dish. Now the shortcut you previously configured is no longer useful. All you have to do is delete the shortcut with the
+command below: 
 
 `shortcut_delete FavLunch`
 
@@ -422,13 +637,47 @@ Example of Usage:
 
 You have received a one-time payment from government GST refunds. You would like to keep track of it however do not want
 to include it in your budget calculations. After executing the add command, input view to find its index.
-![ignore_view.png](images/UserGuide/ignore_view.png)
 
+```
+view
++====================================================================================================+
+|Here is your financial report!                                                                      |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|chicken rice                                 | -$5.00       |Food and Drinks      |25/03/2023|
+|000002|beef noodles                                 | -$12.00      |Food                 |22/03/2023|
+|000003|Haidilao                                     | -$500.00     |miscellaneous        |22/03/2023|
+|000004|GST refund                                   | +$500.00     |grants               |30/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+|Viewing all entries from 2023-02-28 till today                                                      |
+|Total Inflow: $500.00                                                                               |
+|Total Outflow: $517.00                                                                              |
+|Remaining value: $-17.00                                                                            |
++====================================================================================================+
+```
 You can then execute the following command to ignore the entry:
 
-`ignore 6`
+`ignore 4`
 
-![ignore.png](images/UserGuide/ignore.png)
+```
+> ignore 4
+Done, Entry 4 ignored from overview calculations
+> view
++====================================================================================================+
+|Here is your financial report!                                                                      |
++------+---------------------------------------------+--------------+---------------------+----------+
+|Index |Description                                  |Amount        |Category             |Date      |
+|000001|chicken rice                                 | -$5.00       |Food and Drinks      |25/03/2023|
+|000002|beef noodles                                 | -$12.00      |Food                 |22/03/2023|
+|000003|Haidilao                                     | -$500.00     |miscellaneous        |22/03/2023|
+|000004|GST refund                                   | Ignored      |grants               |30/03/2023|
++------+---------------------------------------------+--------------+---------------------+----------+
+|Viewing all entries from 2023-02-28 till today                                                      |
+|Total Inflow: $0.00                                                                                 |
+|Total Outflow: $517.00                                                                              |
+|Remaining value: $-517.00                                                                           |
++====================================================================================================+
+```
 
 ### Saving the data
 
