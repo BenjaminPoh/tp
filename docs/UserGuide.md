@@ -2,56 +2,50 @@
 
 ## Introduction
 
-rainyDay is a desktop application for managing your finances that runs on a Command Line Interface (CLI). rainyDay
-provides a simple solution to track your finances and achieve your financial goals.
+rainyDay is a desktop application for managing your finances that runs on a Command Line Interface (CLI). rainyDay aims
+to provide a simple solution for young working adults to track your finances and achieve your financial goals. 
 
 This user guide provides an in-depth documentation on how to install and use rainyDay. This guide caters to all users of
 rainyDay, from people who are just starting out to advanced users looking for extra features they were unaware of.
 
+Thank you for choosing rainyDay! We sincerely hope that rainyDay has made it easier for you to track your finances.
+Should you have any feedback or enquiries, please do not hesitate to drop us an at rainydayfinancialtracker@gmail.com
+
 ## Content Page
 
 <!-- TOC -->
-
 * [rainyDay User Guide](#rainyday-user-guide)
-    * [Introduction](#introduction)
-    * [Content Page](#content-page)
-    * [Acknowledgement](#acknowledgement)
-    * [How to use the user guide](#how-to-use-the-user-guide)
-    * [Quick Start](#quick-start)
-    * [Features Overview](#features-overview)
-    * [Features](#features)
-        * [Viewing help](#viewing-help)
-        * [Adding a transaction](#adding-a-transaction)
-            * [Simple Usage](#simple-usage)
-            * [Advanced Usage](#advanced-usage)
-        * [Viewing the transactions](#viewing-the-transactions)
-        * [Deleting a transaction](#deleting-a-transaction)
-        * [Filter statements](#filter-statements)
-        * [Editing a transaction](#editing-a-transaction)
-        * [Setting a Monthly Budget](#setting-a-monthly-budget)
-        * [Adding a shortcut](#adding-a-shortcut)
-        * [Using a shortcut](#using-a-shortcut)
-        * [Viewing a shortcut](#viewing-a-shortcut)
-        * [Deleting a shortcut](#deleting-a-shortcut)
-        * [Ignoring an entry](#ignoring-an-entry)
-        * [Saving the data](#saving-the-data)
-            * [Where is my saved file located?](#where-is-my-saved-file-located)
-        * [Loading saved data](#loading-saved-data)
-        * [Exporting to CSV](#exporting-to-csv)
-            * [Where to locate exported CSV file?](#where-to-locate-exported-csv-file)
-            * [How to view the CSV file using Microsoft Excel?](#how-to-view-the-csv-file-using-microsoft-excel)
-        * [Exiting the application](#exiting-the-application)
-    * [FAQ](#faq)
-    * [Command Summary](#command-summary)
-    * [An Example Usage of rainyDay](#an-example-usage-of-rainyday)
-    * [Glossary](#glossary)
-
+  * [Introduction](#introduction)
+  * [Content Page](#content-page)
+  * [How to use the user guide](#how-to-use-the-user-guide)
+  * [Quick Start](#quick-start)
+  * [Features Overview](#features-overview)<details>  <summary> <a href = #feature>Features</a> </summary>
+    * [Viewing help](#viewing-help)
+    * [Adding a transaction](#adding-a-transaction)
+      * [Simple Usage](#simple-usage)
+      * [Advanced Usage](#advanced-usage)
+    * [Viewing the transactions](#viewing-the-transactions)
+    * [Deleting a transaction](#deleting-a-transaction)
+    * [Filter statements](#filter-statements)
+    * [Editing a transaction](#editing-a-transaction)
+    * [Setting a Monthly Budget](#setting-a-monthly-budget)
+    * [Adding a shortcut](#adding-a-shortcut)
+    * [Using a shortcut](#using-a-shortcut)
+    * [Viewing a shortcut](#viewing-a-shortcut)
+    * [Deleting a shortcut](#deleting-a-shortcut)
+    * [Ignoring an entry](#ignoring-an-entry)
+    * [Saving the data](#saving-the-data)
+      * [Where is my saved file located?](#where-is-my-saved-file-located)
+    * [Loading saved data](#loading-saved-data)
+    * [Exporting to CSV](#exporting-to-csv)
+      * [Where to locate exported CSV file?](#where-to-locate-exported-csv-file)
+      * [How to view the CSV file using Microsoft Excel?](#how-to-view-the-csv-file-using-microsoft-excel)
+    * [Exiting the application](#exiting-the-application)
+  * [FAQ](#faq)
+  * [Command Summary](#command-summary)
+  * [An Example Usage of rainyDay](#an-example-usage-of-rainyday)
+  * [Glossary](#glossary)
 <!-- TOC -->
-
-## Acknowledgement
-
-Thank you for choosing rainyDay! We sincerely hope that rainyDay has made it easier for you to track your finances.
-Should you have any feedback or enquiries, please do not hesitate to drop us an [email](add-link-to-email?)!
 
 ## How to use the user guide
 
@@ -83,7 +77,8 @@ Please note the following about the format of commands given under each [feature
        [here](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html#GUID-8677A77F-231A-40F7-98B9-1FD0B48C346A)
        for the guide on installing Java 11
 2. Download the latest version of "rainyDay"
-   from [here](https://github.com/AY2223S2-CS2113T-T09-1/tp/releases/download/v1.0/rainyDay.jar).
+   from [here](https://github.com/AY2223S2-CS2113T-T09-1/tp/releases/download/v1.0/rainyDay.jar) by clicking on 
+   "rainyDay.jar".
 3. Move the "rainyDay.jar" file to the folder of your choice by doing the following steps:
     1. Locate the "rainyDay.jar" file in your "Downloads" folder
     2. Right-click the "rainyDay.jar" file and select cut from the table that appears <br>
