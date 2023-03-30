@@ -368,14 +368,16 @@ public class Parser {
                 throw new IllegalArgumentException();
             }
 
-            int noOfDashes = 0;
-            for (int i = 0; i < tokens[2].length(); i += 1) {
-                if (tokens[2].charAt(i) == '-') {
-                    noOfDashes += 1;
-                }
-            }
+//            int noOfDashes = 0;
+//            for (int i = 0; i < tokens[2].length(); i += 1) {
+//                if (tokens[2].charAt(i) == '-') {
+//                    noOfDashes += 1;
+//                }
+//            }
 
-            if (noOfDashes >= 1) {
+            if (tokens[2].startsWith("-in") | tokens[2].startsWith("-out") | tokens[2].startsWith("-d")
+                    | tokens[2].startsWith("-c") | tokens[2].startsWith("-v") | tokens[2].startsWith("-date")) {
+//            if (noOfDashes >= 1) {
                 ArrayList<String> editFlagAndField = parseEditMultipleFlags(tokens[2]);
                 if (editFlagAndField.contains("-date")) {
                     LocalDate.parse(editFlagAndField.get(editFlagAndField.size() - 1),
