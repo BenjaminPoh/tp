@@ -356,6 +356,7 @@ command in full, you could configure the shortcut as follows.
 
 `shortcut FavLunch -maps add -out noodles $4 -c food`
 
+>⚠️ Avoid adding a shortcut with the same name as an actual command. The actual command will take priority over your configured shortcut.
 ### Using a shortcut
 
 After configuring your shortcuts, you may want to use the shortcut to save yourself the trouble of typing the
